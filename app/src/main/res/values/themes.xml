@@ -4,7 +4,13 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="android:statusBarColor">@color/blue</item>
+        <item name="android:windowLightStatusBar">true</item>
+
     </style>
 
     <style name="Theme.TheNewsapp" parent="Base.Theme.TheNewsapp" />
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/cyan</item>
+    </style>
 </resources>
