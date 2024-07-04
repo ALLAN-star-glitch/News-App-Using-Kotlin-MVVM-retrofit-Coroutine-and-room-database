@@ -4,5 +4,7 @@
     <string name="Headlines">Headlines</string>
     <string name="Favorites">Favorites</string>
     <string name="NoInternet">No Internet</string>
+    <string name="retry">Retry</string>
+    <string name="searchNews">Search news...</string>
 
 </resources>
