@@ -6,5 +6,10 @@
     <string name="NoInternet">No Internet</string>
     <string name="retry">Retry</string>
     <string name="searchNews">Search news...</string>
+    <string name="description">Description</string>
+    <string name="datetime">Date Time</string>
+    <string name="title">Title</string>
+    <string name="source">Source</string>
+    <string name="todo">TODO</string>
 
 </resources>
