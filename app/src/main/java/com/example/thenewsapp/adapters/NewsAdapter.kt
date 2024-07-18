@@ -68,8 +68,8 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
             //any item that is clicked, it opens up the article
             setOnClickListener{
-                onItemClickListener?.let{
-                    it(article)
+                onItemClickListener?.let{itemClickListener ->
+                    itemClickListener(article)
                 }
             }
         }
