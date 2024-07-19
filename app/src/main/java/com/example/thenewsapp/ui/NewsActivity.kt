@@ -1,21 +1,45 @@
 package com.example.thenewsapp.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.thenewsapp.R
+import com.example.thenewsapp.databinding.ActivityNewsBinding
+import com.example.thenewsapp.db.ArticleDatabase
+import com.example.thenewsapp.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
+
+    private lateinit var newsViewModel: NewsViewModel
+    private lateinit var binding: ActivityNewsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_news)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //Creating an instance of custom newsRepository
+        //NewsRepository requires an ArticleDatabase as dependency
+        val newsRepository = NewsRepository(ArticleDatabase(this))
+
+        //creating an instance of custom viewModelProviderFactory
+        val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
+
+        //We are using ViewModelProvider to create an instance of newsViewModel
+        newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
+
+        //Setting up a nav controller for bottom navigation view that we creaated
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }
+
+/*NOTE:
+    1. This setup ensures that the newsViewModel is created using the appropriate dependencies such as
+    news repository and the article database
+    2. The use of NewsViewModelProviderFactory allows you to provide the custom logic for creating a
+     viewModel instance which can be beneficial at the time of testing */
