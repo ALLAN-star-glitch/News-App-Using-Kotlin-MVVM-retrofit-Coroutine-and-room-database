@@ -127,15 +127,15 @@ class NewsViewModel(app: Application, private var newsRepository: NewsRepository
         try{
             if(internetConnection(this.getApplication())){
                 val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+                searchNews.postValue(response?.let { handleSearchNewsResponse(it) })
+            }else{
                 searchNews.postValue(Resource.Error("No Internet Connection!"))
             }
-        }catch(e: Throwable){
+        } catch(e: Throwable){
             when(e){
-               is IOException -> searchNews.postValue(Resource.Error("Unable to connect"))
+                is IOException -> searchNews.postValue(Resource.Error("Unable to connect"))
                 else -> searchNews.postValue(Resource.Error("No Signal"))
             }
-
         }
     }
-
 }

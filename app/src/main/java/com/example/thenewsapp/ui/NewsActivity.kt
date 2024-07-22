@@ -13,7 +13,7 @@ import com.example.thenewsapp.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
 
-    private lateinit var newsViewModel: NewsViewModel
+    lateinit var newsViewModel: NewsViewModel
     private lateinit var binding: ActivityNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class NewsActivity : AppCompatActivity() {
         //We are using ViewModelProvider to create an instance of newsViewModel
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 
-        //Setting up a nav controller for bottom navigation view that we creaated
+        //Setting up a nav controller for bottom navigation view that we created
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
